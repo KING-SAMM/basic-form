@@ -9,6 +9,7 @@ const App = () =>
   });
 
   const [ submitted, setSubmitted ] = useState(false);
+  const [ valid, setValid ] = useState(false);
 
   const handleFirstnameInputChange = (e) => 
   {
@@ -28,6 +29,14 @@ const App = () =>
   const handleSubmit = (e) => 
   {
     e.preventDefault();
+    if(values.firstname && values.lastname  && values.email )
+    {
+      setValid(true);
+    } 
+    else
+    {
+      setValid(false);
+    } 
 
     setSubmitted(true);
   }
@@ -39,10 +48,10 @@ const App = () =>
       <h3>{ values.lastname }</h3>
       <h3>{ values.email }</h3>
       <form className="reg-form" onSubmit={ handleSubmit }>
-        { submitted 
+        { submitted && valid
         ? <h3 className="success-message">Registration successful!</h3> 
         : null
-        };
+        }
         <input 
           type="text" 
           className="form-field"
@@ -50,7 +59,12 @@ const App = () =>
           placeholder="First Name"
           value={ values.firstname }
           onChange={ handleFirstnameInputChange }
-        /> <br />
+        /> 
+        { submitted && !values.firstname 
+        ? <span>First Name is required</span>
+        : null
+        }
+        <br />
         <input 
           type="text" 
           className="form-field"
@@ -58,7 +72,12 @@ const App = () =>
           placeholder="Last Name"
           value={ values.lastname }
           onChange={ handleLastnameInputChange }
-        /> <br />
+          /> 
+          { submitted && !values.lastname 
+          ? <span>Last Name is required</span>
+          : null
+          }
+          <br />
         <input 
           type="email" 
           className="form-field"
@@ -66,16 +85,22 @@ const App = () =>
           placeholder="Email"
           value={ values.email }
           onChange={ handleEmailInputChange }
-        /> <br />
+          /> 
+          { submitted && !values.email 
+          ? <span>Email Name is required</span>
+          : null
+          };
+          <br />
         <input 
           type="submit" 
           className="form-field"
           name="submit" 
           placeholder="Register"
-        />
+          />
       </form>
     </div>
   )
 }
 
 export default App
+
