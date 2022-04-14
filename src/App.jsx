@@ -43,10 +43,7 @@ const App = () =>
 
   return (
     <div className="App">
-      <h2>Inputs</h2>
-      <h3>{ values.firstname }</h3>
-      <h3>{ values.lastname }</h3>
-      <h3>{ values.email }</h3>
+      <h2>Register</h2>
       <form className="reg-form" onSubmit={ handleSubmit }>
         { submitted && valid
         ? <h3 className="success-message">Registration successful!</h3> 
@@ -60,11 +57,12 @@ const App = () =>
           value={ values.firstname }
           onChange={ handleFirstnameInputChange }
         /> 
+        <br />
         { submitted && !values.firstname 
-        ? <span>First Name is required</span>
+        ? <><span>First Name is required</span></>
         : null
         }
-        <br />
+        
         <input 
           type="text" 
           className="form-field"
@@ -72,12 +70,13 @@ const App = () =>
           placeholder="Last Name"
           value={ values.lastname }
           onChange={ handleLastnameInputChange }
-          /> 
+        /> 
+        <br />
           { submitted && !values.lastname 
-          ? <span>Last Name is required</span>
+          ? <><span>Last Name is required</span><br /></>
           : null
           }
-          <br />
+          
         <input 
           type="email" 
           className="form-field"
@@ -85,12 +84,13 @@ const App = () =>
           placeholder="Email"
           value={ values.email }
           onChange={ handleEmailInputChange }
-          /> 
+        /> 
+        <br />
           { submitted && !values.email 
-          ? <span>Email Name is required</span>
+          ? <><span>Email Name is required</span></>
           : null
-          };
-          <br />
+          }
+
         <input 
           type="submit" 
           className="form-field"
