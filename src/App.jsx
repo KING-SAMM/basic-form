@@ -1,31 +1,38 @@
 import { useState } from 'react';
 
+
+// Define Input component for form input elements
+const Input = ({ placeholder, type, name, value, handleInputChange }) => (
+  <input 
+      type={ type }
+      placeholder={ placeholder }
+      value={ value }
+      onChange={ (e) => handleInputChange(e, name) }
+      className="my-2 w-full rounded-sm p-2 outline-none bg-transparent text-white border-none text-sm white-glassmorphism"
+  />
+);
+
 const App = () => 
 {
+  // Define initail states foe input values
   const [ values, setValues ] = useState({
     firstname: '',
     lastname: '',
     email: ''
   });
 
+  // Define initial states for submition and validation
   const [ submitted, setSubmitted ] = useState(false);
   const [ valid, setValid ] = useState(false);
 
-  const handleFirstnameInputChange = (e) => 
+  // Handle input fields change
+  const handleInputChange = (e, name) => 
   {
-    setValues({ ...values, firstname: e.target.value });
+    //prevState is available to us from React
+    setValues((prevState) => ({ ...prevState, [name]: e.target.value }));
   };
 
-  const handleLastnameInputChange = (e) => 
-  {
-    setValues({ ...values, lastname: e.target.value });
-  };
-
-  const handleEmailInputChange = (e) => 
-  {
-    setValues({ ...values, email: e.target.value });
-  };
-
+  // Handle submition
   const handleSubmit = (e) => 
   {
     e.preventDefault();
@@ -49,27 +56,27 @@ const App = () =>
         ? <h3 className="success-message">Registration successful!</h3> 
         : null
         }
-        <input 
+        <Input 
           type="text" 
           className="form-field"
           name="firstname" 
           placeholder="First Name"
           value={ values.firstname }
-          onChange={ handleFirstnameInputChange }
+          handleInputChange={ handleInputChange }
         /> 
         <br />
         { submitted && !values.firstname 
-        ? <><span>First Name is required</span></>
+        ? <><span>First Name is required</span><br /></>
         : null
         }
         
-        <input 
+        <Input 
           type="text" 
           className="form-field"
           name="lastname" 
           placeholder="Last Name"
           value={ values.lastname }
-          onChange={ handleLastnameInputChange }
+          handleInputChange={ handleInputChange }
         /> 
         <br />
           { submitted && !values.lastname 
@@ -77,17 +84,17 @@ const App = () =>
           : null
           }
           
-        <input 
+        <Input 
           type="email" 
           className="form-field"
           name="email" 
           placeholder="Email"
           value={ values.email }
-          onChange={ handleEmailInputChange }
+          handleInputChange={ handleInputChange }
         /> 
         <br />
           { submitted && !values.email 
-          ? <><span>Email Name is required</span></>
+          ? <><span>Email Name is required</span><br /></>
           : null
           }
 
